@@ -13,7 +13,7 @@ class DocumentReady:
         except:
             return False
 
-class ElementHasNonEmptyText:
+class ElementHasText:
     def __init__(self, locator):
         self.locator = locator
 
@@ -63,6 +63,6 @@ def test_login_with_invalid_credentials_shows_error(browser):
     wait.until(EC.visibility_of_element_located(Locators.LOADING_BUTTON_ELEMENT))
     wait.until(EC.element_to_be_clickable(Locators.LOGIN_BUTTON))
 
-    actual_text = wait.until(ElementHasNonEmptyText(Locators.ERROR_TEXT_ELEMENT))
+    actual_text = wait.until(ElementHasText(Locators.ERROR_TEXT_ELEMENT))
     expected_text = "Пожалуйста, проверьте свой пароль и имя аккаунта и попробуйте снова."
     assert expected_text in actual_text, f"Expected text not found in actual text: {actual_text}"
