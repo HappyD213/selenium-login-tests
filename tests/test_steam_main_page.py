@@ -1,3 +1,4 @@
+import time
 import pytest
 
 from faker import Faker
