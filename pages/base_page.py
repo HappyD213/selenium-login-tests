@@ -1,10 +1,12 @@
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from utils.waits import DocumentReady, WaitForNElementsInContainer
+from utils.config_reader import ConfigReader
+
+config = ConfigReader()
 
 
 class BasePage:
-    def __init__(self, browser, timeout=10):
-        self.browser = browser
-        self.wait = WebDriverWait(browser, timeout)
+    def __init__(self, driver):
+        self.browser = driver
+        self.base_url = config.get("DEFAULT", "base_url")
+        self.timeout = config.get_int("DEFAULT", "timeout")
+        self.wait = WebDriverWait(driver, self.timeout, poll_frequency=0.1)

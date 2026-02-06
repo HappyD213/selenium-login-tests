@@ -1,25 +1,23 @@
 from selenium.webdriver.common.by import By
+from utils.waits import DocumentReady
 from pages.base_page import BasePage
 from pages.search_page import SearchPage
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class MainPage(BasePage):
-    URL = "https://store.steampowered.com/"
-
-    MAIN_PAGE_UNIQUE = (By.XPATH, "//h2[@id='home_featured_and_recommended']")
+    MAIN_PAGE_UNIQUE = (By.XPATH, "//*[@id='home_featured_and_recommended']")
     LOGIN_BUTTON = (By.XPATH, "//a[contains(@class,'global_action_link') and contains(@href, 'login')]")
     GAME_SEARCH_INPUT = (By.XPATH, "//form[@role='search']//input[@type='text']")
     GAME_SEARCH_BUTTON = (By.XPATH, "//form[@role='search']//button[@type='submit']")
 
     def open_main_page(self):
-        self.open(self.URL)
-        self.wait_for_visible(self.MAIN_PAGE_UNIQUE)
-        self.wait_for_ready_state()
+        self.browser.get(self.base_url)
+        self.wait.until(EC.visibility_of_element_located(self.MAIN_PAGE_UNIQUE))
+        self.wait.until(DocumentReady())
 
     def search_game(self, game_name):
-        self.type(self.GAME_SEARCH_INPUT, game_name)
-        self.click(self.GAME_SEARCH_BUTTON)
+        self.wait.until(EC.visibility_of_element_located(self.GAME_SEARCH_INPUT)).send_keys(game_name)
+        self.wait.until(EC.element_to_be_clickable(self.GAME_SEARCH_BUTTON)).click()
+        self.wait.until(DocumentReady())
         return SearchPage(self.browser)
-
-    def type_in_game_search_input(self, game_name):
-        self.type(self.GAME_SEARCH_INPUT, game_name)
