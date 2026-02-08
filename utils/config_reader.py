@@ -2,9 +2,11 @@ import configparser
 
 
 class ConfigReader:
-    def __init__(self, file_path="configs/config.ini"):
+    BASE_CONFIG = "configs/config.ini"
+
+    def __init__(self, config_path=BASE_CONFIG):
         self.config = configparser.ConfigParser()
-        self.config.read(file_path)
+        self.config.read(config_path)
 
     def get(self, section, key):
         return self.config.get(section, key)

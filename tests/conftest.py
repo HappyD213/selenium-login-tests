@@ -1,9 +1,11 @@
 import pytest
-from utils.browser import BrowserSingleton
+from utils.browser_singleton import BrowserSingleton
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def browser():
     driver = BrowserSingleton()
     yield driver
     driver.quit()
+    BrowserSingleton._instance = None
+

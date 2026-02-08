@@ -6,13 +6,12 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class MainPage(BasePage):
-    MAIN_PAGE_UNIQUE = (By.XPATH, "//*[@id='home_featured_and_recommended']")
+    MAIN_PAGE_UNIQUE = (By.ID, "home_featured_and_recommended")
     LOGIN_BUTTON = (By.XPATH, "//a[contains(@class,'global_action_link') and contains(@href, 'login')]")
     GAME_SEARCH_INPUT = (By.XPATH, "//form[@role='search']//input[@type='text']")
     GAME_SEARCH_BUTTON = (By.XPATH, "//form[@role='search']//button[@type='submit']")
 
-    def open_main_page(self):
-        self.browser.get(self.base_url)
+    def is_displayed(self):
         self.wait.until(EC.visibility_of_element_located(self.MAIN_PAGE_UNIQUE))
         self.wait.until(DocumentReady())
 
@@ -20,4 +19,3 @@ class MainPage(BasePage):
         self.wait.until(EC.visibility_of_element_located(self.GAME_SEARCH_INPUT)).send_keys(game_name)
         self.wait.until(EC.element_to_be_clickable(self.GAME_SEARCH_BUTTON)).click()
         self.wait.until(DocumentReady())
-        return SearchPage(self.browser)
