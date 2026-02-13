@@ -18,4 +18,3 @@ class MainPage(BasePage):
     def search_game(self, game_name):
         self.wait.until(EC.visibility_of_element_located(self.GAME_SEARCH_INPUT)).send_keys(game_name)
         self.wait.until(EC.element_to_be_clickable(self.GAME_SEARCH_BUTTON)).click()
-        self.wait.until(DocumentReady())

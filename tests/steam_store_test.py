@@ -5,12 +5,16 @@ from utils.config_reader import ConfigReader
 
 config = ConfigReader()
 
+
 @pytest.mark.parametrize(
-    "game_name, n",
+    "browser, game_name, n",
     [
-        ("The witcher", 10),
-        ("Fallout", 20),
-    ]
+        ("ru","The witcher", 10),
+        ("en","The witcher", 10),
+        ("ru","Fallout", 20),
+        ("en","Fallout", 20),
+    ],
+    indirect = ["browser"],
 )
 def test_search_game(browser, game_name, n):
     browser.get(config.get("DEFAULT", "base_url"))
@@ -20,7 +24,7 @@ def test_search_game(browser, game_name, n):
     main_page.search_game(game_name)
 
     search_page = SearchPage()
-    search_page.wait_for_opening()
+    search_page.is_displayed()
     search_page.sort_price_by_desc(n)
     prices = search_page.get_prices(n)
     expected_prices = sorted(prices, reverse=True)
@@ -29,4 +33,3 @@ def test_search_game(browser, game_name, n):
         f"Actual: {prices}\n"
         f"Expected: {expected_prices}"
     )
-

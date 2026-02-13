@@ -1,8 +1,8 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-
 from pages.base_page import BasePage
-from utils.waits import DocumentReady, GetPrices
+from utils.parsers import get_prices
+from utils.waits import DocumentReady
+from utils.parsers import get_prices
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -16,9 +16,9 @@ class SearchPage(BasePage):
     SEARCH_ITEMS = (By.XPATH, "//*[@id='search_resultsRows']/a[contains(@class, 'search_result_row')]")
     LOADER = (By.XPATH, "//div[contains(@style,'opacity: 0.5')]")
 
-    DISCOUNT_PRICE_ELEMENT = By.XPATH, "//a//div[contains(@class, 'search_price_discount_combined')]"
+    DISCOUNT_PRICE_ELEMENT = (By.XPATH, "//a//div[contains(@class, 'search_price_discount_combined')]")
 
-    def wait_for_opening(self):
+    def is_displayed(self):
         self.wait.until(EC.visibility_of_element_located(self.SEARCH_PAGE_UNIQUE))
         self.wait.until(DocumentReady())
 
@@ -29,4 +29,4 @@ class SearchPage(BasePage):
         self.fast_wait.until_not(EC.visibility_of_element_located(self.LOADER))
 
     def get_prices(self, n):
-        return self.wait.until(GetPrices(self.DISCOUNT_PRICE_ELEMENT, n))
+        return self.wait.until(get_prices(self.DISCOUNT_PRICE_ELEMENT, n))
