@@ -18,7 +18,7 @@ class SearchPage(BasePage):
 
     DISCOUNT_PRICE_ELEMENT = (By.XPATH, "//a//div[contains(@class, 'search_price_discount_combined')]")
 
-    def is_displayed(self):
+    def wait_for_opening(self):
         self.wait.until(EC.visibility_of_element_located(self.SEARCH_PAGE_UNIQUE))
         self.wait.until(DocumentReady())
 

@@ -1,6 +1,5 @@
 import pytest
 from selenium import webdriver
-
 from utils.browser_singleton import BrowserSingleton
 
 

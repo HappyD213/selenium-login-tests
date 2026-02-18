@@ -11,7 +11,7 @@ class MainPage(BasePage):
     GAME_SEARCH_INPUT = (By.XPATH, "//form[@role='search']//input[@type='text']")
     GAME_SEARCH_BUTTON = (By.XPATH, "//form[@role='search']//button[@type='submit']")
 
-    def is_displayed(self):
+    def wait_for_opening(self):
         self.wait.until(EC.visibility_of_element_located(self.MAIN_PAGE_UNIQUE))
         self.wait.until(DocumentReady())
 
