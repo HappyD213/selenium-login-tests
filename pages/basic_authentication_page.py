@@ -5,7 +5,7 @@ from pages.base_page import BasePage
 
 
 class BasicAuthenticationPage(BasePage):
-    BASIC_AUTHENTICATION_UNIQUE = (By.XPATH, "//div[@id='content']//p")
+    BASIC_AUTHENTICATION_UNIQUE = (By.XPATH, "//*[@id='content']//p")
 
     def wait_for_opening(self):
         self.wait.until(EC.visibility_of_element_located(self.BASIC_AUTHENTICATION_UNIQUE))
