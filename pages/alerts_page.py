@@ -13,16 +13,16 @@ class AlertsPage(BasePage):
         self.wait.until(EC.visibility_of_element_located(self.JS_ALERT))
         self.wait.until(document_ready())
 
-    def click_js_alert_button(self):
+    def click_alert_button(self):
         self.wait.until(EC.element_to_be_clickable(self.JS_ALERT)).click()
 
-    def click_js_confirm_button(self):
+    def click_confirm_button(self):
         self.wait.until(EC.element_to_be_clickable(self.JS_CONFIRM)).click()
 
-    def click_js_prompt_button(self):
+    def click_prompt_button(self):
         self.wait.until(EC.element_to_be_clickable(self.JS_PROMPT)).click()
 
-    def get_js_alert_text(self):
+    def get_alert_text(self):
         text = self.wait.until(lambda d: d.switch_to.alert).text
         return text
 
@@ -34,3 +34,15 @@ class AlertsPage(BasePage):
 
     def alert_send_keys(self, text):
         self.wait.until(lambda d: d.switch_to.alert).send_keys(text)
+
+    def click_js_alert_button(self):
+        element = self.wait.until(EC.element_to_be_clickable(self.JS_ALERT))
+        self.driver.execute_script("arguments[0].click();", element)
+
+    def click_js_confirm_button(self):
+        element = self.wait.until(EC.element_to_be_clickable(self.JS_CONFIRM))
+        self.driver.execute_script("arguments[0].click();", element)
+
+    def click_js_prompt_button(self):
+        element = self.wait.until(EC.element_to_be_clickable(self.JS_PROMPT))
+        self.driver.execute_script("arguments[0].click();", element)
