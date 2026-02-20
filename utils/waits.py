@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common.exceptions import NoAlertPresentException
 
 
 def document_ready():
@@ -20,3 +21,12 @@ def element_has_text(locator):
             return False
 
     return wait_func
+
+
+def is_alert_closed(driver):
+    try:
+        driver.switch_to.alert
+        return False
+
+    except NoAlertPresentException:
+        return True

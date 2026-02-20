@@ -1,7 +1,9 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from utils.waits import document_ready
+from utils.waits import document_ready, is_alert_closed
+from selenium.webdriver import ActionChains
+
 
 class AlertsPage(BasePage):
     JS_ALERT = (By.XPATH, "//*[contains(@onclick, 'jsAlert()')]")
@@ -46,3 +48,6 @@ class AlertsPage(BasePage):
     def click_js_prompt_button(self):
         element = self.wait.until(EC.element_to_be_clickable(self.JS_PROMPT))
         self.driver.execute_script("arguments[0].click();", element)
+
+    def wait_for_close_alert(self):
+        self.wait.until(lambda d: is_alert_closed(d))
