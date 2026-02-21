@@ -30,3 +30,24 @@ def is_alert_closed(driver):
 
     except NoAlertPresentException:
         return True
+
+
+def get_elements(locator):
+    def wait_func(driver):
+        elements = driver.find_elements(*locator)
+        return elements if elements else False
+
+    return wait_func
+
+
+def get_users_names(locator):
+    def wait_func(driver):
+        elements = driver.find_elements(*locator)
+
+        for el in elements:
+            if el.text.strip():
+                return elements
+
+        return False
+
+    return wait_func
