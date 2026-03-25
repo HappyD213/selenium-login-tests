@@ -3,7 +3,7 @@ import os
 import sys
 from logging.handlers import RotatingFileHandler
 
-from configs.logger_config import LoggerConfig
+from logger.logger_config import LoggerConfig
 
 
 class Logger:

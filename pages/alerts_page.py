@@ -25,17 +25,17 @@ class AlertsPage(BasePage):
         self.wait.until(EC.element_to_be_clickable(self.JS_PROMPT)).click()
 
     def get_alert_text(self):
-        text = self.wait.until(lambda d: d.switch_to.alert).text
+        text = self.wait.until(EC.alert_is_present()).text
         return text
 
     def alert_accept(self):
-        self.wait.until(lambda d: d.switch_to.alert).accept()
+        self.wait.until(EC.alert_is_present()).accept()
 
     def get_actual_result_text(self):
         return self.wait.until(EC.visibility_of_element_located(self.RESULT)).text
 
     def alert_send_keys(self, text):
-        self.wait.until(lambda d: d.switch_to.alert).send_keys(text)
+        self.wait.until(EC.alert_is_present()).send_keys(text)
 
     def click_js_alert_button(self):
         element = self.wait.until(EC.element_to_be_clickable(self.JS_ALERT))
