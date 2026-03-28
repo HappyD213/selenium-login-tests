@@ -1,4 +1,4 @@
-from utils.config_reader import ConfigReader
+from config.config_reader import ConfigReader
 from pages.slider_page import SliderPage
 
 config = ConfigReader()

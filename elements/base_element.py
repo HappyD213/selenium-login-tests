@@ -108,7 +108,6 @@ class BaseElement:
         Logger.info(f"{self}: attribute '{name}' = '{value}'")
         return value
 
-
     def get_css_property(self, name: str) -> str:
         element = self.wait_for_presence()
         Logger.info(f"{self}: get CSS property '{name}'")

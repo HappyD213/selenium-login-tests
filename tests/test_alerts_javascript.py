@@ -1,7 +1,6 @@
 import faker
-import pytest
 from pages.alerts_page import AlertsPage
-from utils.config_reader import ConfigReader
+from config.config_reader import ConfigReader
 
 config = ConfigReader()
 fake = faker.Faker()

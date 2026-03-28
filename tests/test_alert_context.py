@@ -1,5 +1,5 @@
 from pages.alerts_context_page import AlertContextPage
-from utils.config_reader import ConfigReader
+from config.config_reader import ConfigReader
 
 config = ConfigReader()
 

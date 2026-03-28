@@ -2,7 +2,7 @@ import configparser
 
 
 class ConfigReader:
-    BASE_CONFIG = "configs/config.ini"
+    BASE_CONFIG = "config/config.ini"
 
     def __init__(self, config_path=BASE_CONFIG):
         self.config = configparser.ConfigParser()

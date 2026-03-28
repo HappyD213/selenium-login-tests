@@ -1,5 +1,5 @@
 from pages.basic_authentication_page import BasicAuthenticationPage
-from utils.config_reader import ConfigReader
+from config.config_reader import ConfigReader
 
 config = ConfigReader()
 

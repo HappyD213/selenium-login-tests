@@ -1,6 +1,6 @@
 import pytest
 from pages.hovers_page import HoversPage
-from utils.config_reader import ConfigReader
+from config.config_reader import ConfigReader
 
 config = ConfigReader()
 
