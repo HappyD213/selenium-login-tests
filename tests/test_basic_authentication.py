@@ -8,9 +8,9 @@ def test_basic_authentication_page(browser):
     browser.get(config.get("DEFAULT", "base_url"))
 
     basic_authentication_page = BasicAuthenticationPage(browser)
-    basic_authentication_page.wait_for_opening()
+    basic_authentication_page.wait_for_open()
 
     expected_text = "Congratulations! You must have the proper credentials."
-    actual_text = basic_authentication_page.get_element_text()
+    actual_text = basic_authentication_page.get_result_text()
 
-    assert expected_text in actual_text, f"Expected to find: {expected_text} but actual text was: {actual_text}"
+    assert expected_text in actual_text, f"Expected: {expected_text} Actual: {actual_text}"

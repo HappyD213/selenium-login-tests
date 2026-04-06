@@ -1,53 +1,62 @@
+from browser.browser import Browser
+from elements.button import Button
+from elements.input import Input
+from elements.web_element import WebElement
+from elements.multi_web_element import MultiWebElement
+from logger.logger import Logger
 from pages.base_page import BasePage
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from utils.waits import document_ready, is_alert_closed
-from selenium.webdriver import ActionChains
+from faker import Faker
+
+fake = Faker()
 
 
 class AlertsPage(BasePage):
-    JS_ALERT = (By.XPATH, "//*[contains(@onclick, 'jsAlert()')]")
-    JS_CONFIRM = (By.XPATH, "//*[contains(@onclick, 'jsConfirm()')]")
-    JS_PROMPT = (By.XPATH, "//*[contains(@onclick, 'jsPrompt()')]")
-    RESULT = (By.ID, "result")
+    JS_ALERT_LOC = "//*[contains(@onclick, 'jsAlert()')]"
+    JS_CONFIRM_LOC = "//*[contains(@onclick, 'jsConfirm()')]"
+    JS_PROMPT_LOC = "//*[contains(@onclick, 'jsPrompt()')]"
+    RESULT_LOC = "result"
 
-    def wait_for_opening(self):
-        self.wait.until(EC.visibility_of_element_located(self.JS_ALERT))
-        self.wait.until(document_ready())
+    def __init__(self, browser: Browser):
+        super().__init__(browser)
+        self.name = "Alerts Page"
 
-    def click_alert_button(self):
-        self.wait.until(EC.element_to_be_clickable(self.JS_ALERT)).click()
+        self.unique_element = Button(self.browser, self.JS_ALERT_LOC, description="Alerts page -> Unique element")
 
-    def click_confirm_button(self):
-        self.wait.until(EC.element_to_be_clickable(self.JS_CONFIRM)).click()
+        self.js_alert_button = Button(self.browser, self.JS_ALERT_LOC, description="Alerts page -> Js alert button")
+        self.js_confirm_button = Button(self.browser, self.JS_CONFIRM_LOC, description="Alerts page -> Js confirm button")
+        self.js_prompt_button = Button(self.browser, self.JS_PROMPT_LOC, description="Alerts page -> Js prompt button")
+        self.result_element = WebElement(self.browser, self.RESULT_LOC, description="Alerts page -> Result element")
 
-    def click_prompt_button(self):
-        self.wait.until(EC.element_to_be_clickable(self.JS_PROMPT)).click()
+    def alert_button_click(self):
+        Logger.info(f"{self}: click alert")
+        self.js_alert_button.click()
+        self.browser.wait_alert_present()
 
-    def get_alert_text(self):
-        text = self.wait.until(EC.alert_is_present()).text
-        return text
+    def confirm_button_click(self):
+        Logger.info(f"{self}: click confirm")
+        self.js_confirm_button.click()
+        self.browser.wait_alert_present()
 
-    def alert_accept(self):
-        self.wait.until(EC.alert_is_present()).accept()
+    def prompt_button_click(self):
+        Logger.info(f"{self}: click prompt")
+        self.js_prompt_button.click()
+        self.browser.wait_alert_present()
 
-    def get_actual_result_text(self):
-        return self.wait.until(EC.visibility_of_element_located(self.RESULT)).text
+    def js_alert_button_click(self):
+        Logger.info(f"{self}: js click alert")
+        self.js_alert_button.js_click()
+        self.browser.wait_alert_present()
 
-    def alert_send_keys(self, text):
-        self.wait.until(EC.alert_is_present()).send_keys(text)
+    def js_confirm_button_click(self):
+        Logger.info(f"{self}: js click confirm")
+        self.js_confirm_button.js_click()
+        self.browser.wait_alert_present()
 
-    def click_js_alert_button(self):
-        element = self.wait.until(EC.element_to_be_clickable(self.JS_ALERT))
-        self.driver.execute_script("arguments[0].click();", element)
+    def js_prompt_button_click(self):
+        Logger.info(f"{self}: js click prompt")
+        self.js_prompt_button.js_click()
+        self.browser.wait_alert_present()
 
-    def click_js_confirm_button(self):
-        element = self.wait.until(EC.element_to_be_clickable(self.JS_CONFIRM))
-        self.driver.execute_script("arguments[0].click();", element)
-
-    def click_js_prompt_button(self):
-        element = self.wait.until(EC.element_to_be_clickable(self.JS_PROMPT))
-        self.driver.execute_script("arguments[0].click();", element)
-
-    def wait_for_close_alert(self):
-        self.wait.until(lambda d: is_alert_closed(d))
+    def get_result_text(self):
+        Logger.info(f"{self}: get result text")
+        return self.result_element.get_text()

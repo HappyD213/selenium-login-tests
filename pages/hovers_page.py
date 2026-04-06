@@ -1,28 +1,30 @@
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from browser.browser import Browser
 from pages.base_page import BasePage
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
-from utils.waits import document_ready, get_elements, get_users_names
+from elements.button import Button
+from elements.web_element import WebElement
+from elements.multi_web_element import MultiWebElement
 
 
 class HoversPage(BasePage):
-    HOVERS_PAGE_UNIQUE = (By.XPATH, "(//img[contains(@alt, 'User Avatar')])[1]")
-    USER_CONTAINER = (By.XPATH, "//div[contains(@class,'figure')]")
-    USER_NAME = (By.XPATH, "//div[contains(@class, 'figcaption')]//h5")
+    USER_CONTAINER = "//div[contains(@class,'figure')][{}]"
+    USER_NAME = "//div[contains(@class, 'figcaption')]//h5[{}]"
 
-    def wait_for_displayed(self):
-        self.wait.until(EC.visibility_of_element_located(self.HOVERS_PAGE_UNIQUE))
-        self.wait.until(document_ready())
+    def __init__(self, browser: Browser):
+        super().__init__(browser)
+        self.name = "Hovers Page"
 
-    def move_to_user(self, index):
-        users = self.wait.until(get_elements(self.USER_CONTAINER))
-        user = users[index]
-        ActionChains(self.driver) \
-            .move_to_element(user) \
-            .perform()
+        self.unique_element = WebElement(self.browser, self.USER_CONTAINER, description="Hovers Page -> Unique Element")
+        self.user_containers = MultiWebElement(self.browser, self.USER_CONTAINER)
+        self.user_names = MultiWebElement(self.browser, self.USER_NAME)
 
-    def wait_user_name_visible(self, index):
-        elements = self.wait.until(get_users_names(self.USER_NAME))
-        users_names = [element.text for element in elements]
-        user_name = users_names[index]
-        return user_name
+    #def check_users(self) -> None:
+        #for user_container in self.user_containers:
+            #ActionChains(self.browser.driver) \
+                #.move_to_element(user_container.wait_for_visible()) \
+                #.perform()
+
+

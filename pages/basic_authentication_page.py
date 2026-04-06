@@ -1,15 +1,22 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from utils.waits import document_ready, element_has_text
+from browser.browser import Browser
+from elements.button import Button
+from elements.input import Input
+from elements.web_element import WebElement
+from elements.multi_web_element import MultiWebElement
+from logger.logger import Logger
 from pages.base_page import BasePage
 
 
 class BasicAuthenticationPage(BasePage):
-    BASIC_AUTHENTICATION_UNIQUE = (By.XPATH, "//*[@id='content']//p")
+    UNIQUE_ELEMENT_LOC = "//*[@id='content']//p"
 
-    def wait_for_opening(self):
-        self.wait.until(EC.visibility_of_element_located(self.BASIC_AUTHENTICATION_UNIQUE))
-        self.wait.until(document_ready())
+    def __init__(self, browser: Browser):
+        super().__init__(browser)
+        self.name = "Basic Authentication Page"
 
-    def get_element_text(self):
-        return self.wait.until(element_has_text(self.BASIC_AUTHENTICATION_UNIQUE))
+        self.unique_element = WebElement(self.browser, self.UNIQUE_ELEMENT_LOC, description="Basic authentication page -> Unique element")
+
+    def get_result_text(self) -> str:
+        Logger.info(f"{self}: get_result_text")
+        text = self.unique_element.get_text()
+        return text

@@ -7,10 +7,10 @@ config = ConfigReader()
 def test_slider_move(browser):
     browser.get(config.get("DEFAULT", "slider_url"))
     slider_page = SliderPage(browser)
-    slider_page.wait_for_displayed()
+    slider_page.wait_for_open()
 
-    expected_value = slider_page.move_slider()
-    actual_value = slider_page.get_current_value()
-    assert expected_value == actual_value, (f"Expected not equal to actual\n"
-                                            f"Actual value: {actual_value}\n"
-                                            f"Expected value: {expected_value}")
+    value_for_test = 5
+    slider_page.set_slider_value(value_for_test)
+    actual_result_text = slider_page.get_result_text()
+    expected_result_text = str(value_for_test)
+    assert actual_result_text == expected_result_text, f"Expected: {expected_result_text} != Actual: {actual_result_text}"

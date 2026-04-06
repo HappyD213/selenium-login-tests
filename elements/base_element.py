@@ -3,9 +3,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
-from browser.browser import Browser
+from utils.waits import element_has_text
+from typing import TYPE_CHECKING
 from logger.logger import Logger
+
+if TYPE_CHECKING:
+    from browser.browser import Browser
 
 
 class BaseElement:

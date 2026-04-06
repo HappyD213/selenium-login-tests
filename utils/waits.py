@@ -15,7 +15,7 @@ def element_has_text(locator):
         try:
             element = driver.find_element(*locator)
             text = element.text.strip()
-            return text if text else False
+            return element if text else False
 
         except:
             return False

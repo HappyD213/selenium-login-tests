@@ -9,53 +9,42 @@ fake = faker.Faker()
 def test_alerts(browser):
     browser.get(config.get("DEFAULT", "alerts_url"))
     alerts_page = AlertsPage(browser)
-    alerts_page.wait_for_opening()
+    alerts_page.wait_for_open()
 
-    # JS Alert
-    alerts_page.click_alert_button()
-    actual_js_alert_text = alerts_page.get_alert_text()
-    expected_js_alert_text = "I am a JS Alert"
-    assert expected_js_alert_text in actual_js_alert_text, (f"Expected not in actual\n"
-                                                            f"Actual: {actual_js_alert_text}\n"
-                                                            f"Expected: {expected_js_alert_text}")
+    # JS ALERT
+    alerts_page.alert_button_click()
+    actual_alert_text = browser.get_alert_text()
+    expected_alert_text = "I am a JS Alert"
+    assert expected_alert_text == actual_alert_text, f"Expected: {expected_alert_text} Actual: {actual_alert_text}"
 
-    alerts_page.alert_accept()
-    alerts_page.wait_for_close_alert()
-    expected_result = "You successfully clicked an alert"
-    actual_result = alerts_page.get_actual_result_text()
-    assert expected_result in actual_result, (f"Expected result not in actual\n"
-                                              f"Actual: {actual_result}\n"
-                                              f"Expected: {expected_result}")
-    # JS Confirm
-    alerts_page.click_confirm_button()
-    expected_js_confirm_text = "I am a JS Confirm"
-    actual_js_confirm_text = alerts_page.get_alert_text()
-    assert expected_js_confirm_text in actual_js_confirm_text, (f"Expected not in actual\n"
-                                                                f"Actual: {actual_js_confirm_text}\n"
-                                                                f"Expected: {expected_js_confirm_text}")
+    browser.accept_alert()
+    browser.wait_alert_gone()
+    actual_result_text = alerts_page.get_result_text()
+    expected_result_text = "You successfully clicked an alert"
+    assert expected_result_text == actual_result_text, f"Expected: {expected_result_text} Actual: {actual_result_text}"
 
-    alerts_page.alert_accept()
-    alerts_page.wait_for_close_alert()
-    expected_result = "You clicked: Ok"
-    actual_result_confirm = alerts_page.get_actual_result_text()
-    assert expected_result in actual_result_confirm, (f"Expected result not in actual\n"
-                                                      f"Actual: {actual_result_confirm}\n"
-                                                      f"Expected: {expected_result}")
+    # JS CONFIRM
+    alerts_page.confirm_button_click()
+    actual_alert_text = browser.get_alert_text()
+    expected_alert_text = "I am a JS Confirm"
+    assert expected_alert_text in actual_alert_text, f"Expected: {expected_alert_text} Actual: {actual_alert_text}"
 
-    # JS Prompt
-    alerts_page.click_prompt_button()
-    expected_js_prompt_text = "I am a JS prompt"
-    actual_js_prompt_text = alerts_page.get_alert_text()
-    assert expected_js_prompt_text in actual_js_prompt_text, (f"Expected not in actual\n"
-                                                              f"Actual: {actual_js_prompt_text}\n"
-                                                              f"Expected: {expected_js_prompt_text}")
+    browser.accept_alert()
+    browser.wait_alert_gone()
+    actual_result_text = alerts_page.get_result_text()
+    expected_result_text = "You clicked: Ok"
+    assert expected_result_text in actual_result_text, f"Expected: {expected_result_text} Actual: {actual_result_text}"
 
-    some_random_text = fake.text(max_nb_chars=10)
-    expected_result_prompt = f"You entered: {some_random_text}"
-    alerts_page.alert_send_keys(some_random_text)
-    alerts_page.alert_accept()
-    alerts_page.wait_for_close_alert()
-    actual_result_prompt = alerts_page.get_actual_result_text()
-    assert expected_result_prompt in actual_result_prompt, (f"Expected result not in actual\n"
-                                                            f"Actual: {actual_result_prompt}\n"
-                                                            f"Expected: {expected_result_prompt}")
+    # JS PROMPT
+    alerts_page.prompt_button_click()
+    actual_alert_text = browser.get_alert_text()
+    expected_alert_text = "I am a JS prompt"
+    assert expected_alert_text in actual_alert_text, f"Expected: {expected_alert_text} Actual: {actual_alert_text}"
+
+    text_for_test = fake.text(10)
+    browser.send_keys_alert(text_for_test)
+    browser.accept_alert()
+    browser.wait_alert_gone()
+    actual_result_text = alerts_page.get_result_text()
+    expected_result_text = f"You entered: {text_for_test}"
+    assert expected_result_text in actual_result_text, f"Expected: {expected_result_text} Actual: {actual_result_text}"

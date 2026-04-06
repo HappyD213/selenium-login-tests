@@ -3,6 +3,7 @@ from selenium.common import WebDriverException
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from elements.base_element import BaseElement
 from logger.logger import Logger
 
 
@@ -84,6 +85,10 @@ class Browser:
         Logger.info(f"{self}: wait alert present")
         return self._wait.until(EC.alert_is_present())
 
+    def wait_alert_gone(self):
+        Logger.info(f"{self}: wait alert gone")
+        return self._wait.until_not(EC.alert_is_present())
+
     def get_alert_text(self):
         Logger.info(f"{self}: get alert text")
         return self.wait_alert_present().text
@@ -96,9 +101,9 @@ class Browser:
         Logger.info(f"{self}: send '{text}' to alert'")
         self.wait_alert_present().send_keys(text)
 
-    # def switch_to_frame(self, frame: BaseElement):
-    # Logger.info(f"{self}: switch to frame")
-    # return self.driver.switch_to.frame(frame.wait_for_present())
+    def switch_to_frame(self, frame: BaseElement):
+        Logger.info(f"{self}: switch to frame")
+        return self.driver.switch_to.frame(frame.wait_for_presence())
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}[{self._driver.session_id}]"

@@ -1,4 +1,5 @@
 import pytest
+from browser.browser import Browser
 from selenium import webdriver
 
 
@@ -6,5 +7,6 @@ from selenium import webdriver
 def browser():
     options = webdriver.ChromeOptions()
     driver = webdriver.Chrome(options=options)
-    yield driver
-    driver.quit()
+    browser = Browser(driver)
+    yield browser
+    browser.quit()

@@ -1,41 +1,48 @@
-import random
+from typing import TYPE_CHECKING
+
+from selenium.webdriver.support.wait import WebDriverWait
+
 from pages.base_page import BasePage
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+from elements.button import Button
+from elements.input import Input
+from elements.label import Label
+from elements.web_element import WebElement
+from elements.multi_web_element import MultiWebElement
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import ActionChains
-from utils.waits import document_ready
+import time
+
+if TYPE_CHECKING:
+    from browser.browser import Browser
 
 
 class SliderPage(BasePage):
-    SLIDER = (By.XPATH, '//div[contains(@class,"sliderContainer")]//input[@type="range"]')
-    CURRENT_RANGE = (By.ID, 'range')
+    SLIDER_LOC = '//div[contains(@class,"sliderContainer")]//input[@type="range"]'
+    CURRENT_RANGE_LOC = 'range'
 
-    def wait_for_displayed(self):
-        self.wait.until(EC.visibility_of_element_located(self.SLIDER))
-        self.wait.until(document_ready())
+    def __init__(self, browser: Browser):
+        super().__init__(browser)
+        self.name = 'SliderPage'
 
-    def move_slider(self):
-        slider = self.wait.until(EC.element_to_be_clickable(self.SLIDER))
-        min_value = float(slider.get_attribute('min'))
-        max_value = float(slider.get_attribute('max'))
-        step = float(slider.get_attribute('step'))
+        self.unique_element = WebElement(self.browser, self.SLIDER_LOC, description=f"Slider Page -> Unique Element")
+        self.result_element = Label(self.browser, self.CURRENT_RANGE_LOC, description=f"Slider Page -> Result Element")
 
-        random_values = [min_value + i * step for i in range(1, int((max_value - min_value) / step))]
-        value = random.choice(random_values)
+    def set_slider_value(self, value_to_set: int) -> None:
+        max_value = float(self.unique_element.get_attribute("max"))
+        min_value = float(self.unique_element.get_attribute("min"))
+        slider = self.unique_element.wait_for_clickable()
 
-        slider_width = slider.size['width']
+        if value_to_set > max_value or value_to_set < min_value:
+            raise ValueError(f"Slider value must be between {min_value} and {max_value} your value is {value_to_set}")
 
-        relative_value = (value - min_value) / (max_value - min_value)
-        x_offset = relative_value * slider_width
-        x_offset_corrected = x_offset - (slider_width / 2)
+        self.browser.execute_script("""
+                                    arguments[0].value = arguments[1];
+                                    arguments[0].dispatchEvent(new Event('input'));
+                                    arguments[0].dispatchEvent(new Event('change'));
+                                    """,
+                                    slider,
+                                    value_to_set)
 
-        ActionChains(self.driver) \
-            .click_and_hold(slider) \
-            .move_by_offset(x_offset_corrected, 0) \
-            .release() \
-            .perform()
-        return int(value)
-
-    def get_current_value(self):
-        text = self.wait.until(EC.visibility_of_element_located(self.CURRENT_RANGE)).text
-        return int(text)
+    def get_result_text(self) -> str:
+        text = self.result_element.get_text()
+        return text
