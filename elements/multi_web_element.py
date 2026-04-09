@@ -34,9 +34,17 @@ class MultiWebElement:
 
         if not current_element.is_exists():
             raise StopIteration
-        else:
-            self.index += 1
-            return current_element
+
+        self.index += 1
+        return current_element
+
+    def __getitem__(self, item):
+        return WebElement(
+            self.browser,
+            self.formattable_xpath.format(item),
+            description=f"{self.description}[{item}]",
+            timeout=self.timeout
+        )
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}[{self.description}]"

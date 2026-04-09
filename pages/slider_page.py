@@ -1,16 +1,10 @@
+from random import choice
 from typing import TYPE_CHECKING
-
-from selenium.webdriver.support.wait import WebDriverWait
-
 from pages.base_page import BasePage
-from elements.button import Button
 from elements.input import Input
 from elements.label import Label
 from elements.web_element import WebElement
-from elements.multi_web_element import MultiWebElement
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver import ActionChains
-import time
 
 if TYPE_CHECKING:
     from browser.browser import Browser
@@ -25,23 +19,33 @@ class SliderPage(BasePage):
         self.name = 'SliderPage'
 
         self.unique_element = WebElement(self.browser, self.SLIDER_LOC, description=f"Slider Page -> Unique Element")
+        self.slider_element = Input(self.browser, self.SLIDER_LOC, description=f"Slider Page -> Slider Element")
         self.result_element = Label(self.browser, self.CURRENT_RANGE_LOC, description=f"Slider Page -> Result Element")
 
-    def set_slider_value(self, value_to_set: int) -> None:
-        max_value = float(self.unique_element.get_attribute("max"))
-        min_value = float(self.unique_element.get_attribute("min"))
-        slider = self.unique_element.wait_for_clickable()
+    def set_slider_value(self, value_to_set: float) -> None:
+        self.slider_element.click()
+        step_value = float(self.unique_element.get_attribute("step"))
+        current_value = float(self.unique_element.get_attribute("value"))
+        steps = round((value_to_set - current_value) / step_value)
 
-        if value_to_set > max_value or value_to_set < min_value:
-            raise ValueError(f"Slider value must be between {min_value} and {max_value} your value is {value_to_set}")
+        if steps < 0:
+            self.slider_element.send_keys(Keys.ARROW_LEFT * abs(steps))
+        elif steps > 0:
+            self.slider_element.send_keys(Keys.ARROW_RIGHT * steps)
 
-        self.browser.execute_script("""
-                                    arguments[0].value = arguments[1];
-                                    arguments[0].dispatchEvent(new Event('input'));
-                                    arguments[0].dispatchEvent(new Event('change'));
-                                    """,
-                                    slider,
-                                    value_to_set)
+    def get_random_value_for_slider(self) -> float:
+        step = float(self.slider_element.get_attribute("step"))
+        min_value = float(self.slider_element.get_attribute("min"))
+        max_value = float(self.slider_element.get_attribute("max"))
+
+        possible_values = []
+        current_value = min_value
+
+        while current_value <= max_value:
+            possible_values.append(current_value)
+            current_value += step
+
+        return choice(possible_values)
 
     def get_result_text(self) -> str:
         text = self.result_element.get_text()

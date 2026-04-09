@@ -2,12 +2,11 @@ import faker
 from pages.alerts_page import AlertsPage
 from config.config_reader import ConfigReader
 
-config = ConfigReader()
 fake = faker.Faker()
 
 
 def test_alerts(browser):
-    browser.get(config.get("DEFAULT", "alerts_url"))
+    browser.get(ConfigReader.get_alerts_url())
     alerts_page = AlertsPage(browser)
     alerts_page.wait_for_open()
 

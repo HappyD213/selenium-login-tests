@@ -1,11 +1,11 @@
 from pages.basic_authentication_page import BasicAuthenticationPage
 from config.config_reader import ConfigReader
-
-config = ConfigReader()
+from utils.url_builder import UrlBuilder
 
 
 def test_basic_authentication_page(browser):
-    browser.get(config.get("DEFAULT", "base_url"))
+    browser.get(UrlBuilder.get_basic_auth_url(ConfigReader.get_base_url(), ConfigReader.get_login(),
+                                              ConfigReader.get_password()))
 
     basic_authentication_page = BasicAuthenticationPage(browser)
     basic_authentication_page.wait_for_open()

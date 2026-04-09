@@ -1,15 +1,31 @@
-import configparser
+from config.config import Options
 
 
 class ConfigReader:
-    BASE_CONFIG = "config/config.ini"
+    @staticmethod
+    def get_base_url() -> str:
+        return Options.BASE_URL
 
-    def __init__(self, config_path=BASE_CONFIG):
-        self.config = configparser.ConfigParser()
-        self.config.read(config_path)
+    @staticmethod
+    def get_alerts_url() -> str:
+        return Options.ALERTS_URL
 
-    def get(self, section, key):
-        return self.config.get(section, key)
+    @staticmethod
+    def get_context_alerts_url() -> str:
+        return Options.CONTEXT_ALERTS_URL
 
-    def get_int(self, section, key):
-        return self.config.getint(section, key)
+    @staticmethod
+    def get_slider_url() -> str:
+        return Options.SLIDER_URL
+
+    @staticmethod
+    def get_hovers_url() -> str:
+        return Options.HOVERS_URL
+
+    @staticmethod
+    def get_login() -> str:
+        return Options.LOGIN
+
+    @staticmethod
+    def get_password() -> str:
+        return Options.PASSWORD

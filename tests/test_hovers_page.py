@@ -7,19 +7,16 @@ config = ConfigReader()
 
 @pytest.mark.parametrize("index, expected_name",
                          [
-                             (0, "name: user1"),
-                             (1, "name: user2"),
-                             (2, "name: user3"),
+                             (1, "name: user1"),
+                             (2, "name: user2"),
+                             (3, "name: user3"),
 
                          ])
 def test_hovers_page(browser, index, expected_name):
-    browser.get(config.get("DEFAULT", "hovers_url"))
+    browser.get(ConfigReader.get_hovers_url())
     hovers_page = HoversPage(browser)
-    hovers_page.wait_for_displayed()
-    hovers_page.move_to_user(index)
+    hovers_page.wait_for_open()
 
-    actual_user_name = hovers_page.wait_user_name_visible(index)
     expected_user_name = expected_name
-    assert expected_user_name == actual_user_name, (f"Actual name not equal to expected name\n"
-                                                    f"Actual name: {actual_user_name}\n"
-                                                    f"Expected name: {expected_user_name}")
+    actual_user_name = hovers_page.get_n_user_name(index)
+    assert expected_user_name == actual_user_name, f"Expected not equal to Actual: {repr(expected_user_name)} != {repr(actual_user_name)}"
