@@ -7,5 +7,6 @@ class Options(StrEnum):
     CONTEXT_ALERTS_URL = "http://the-internet.herokuapp.com/context_menu"
     SLIDER_URL = "https://the-internet.herokuapp.com/horizontal_slider"
     HOVERS_URL = "http://the-internet.herokuapp.com/hovers"
+    HANDLERS_URL = "http://the-internet.herokuapp.com/windows"
     LOGIN = "admin"
     PASSWORD = "admin"

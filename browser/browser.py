@@ -37,6 +37,10 @@ class Browser:
         Logger.info(f"{self}: close window handle '{self._driver.current_window_handle}'")
         self._driver.close()
 
+    def back(self) -> None:
+        Logger.info(f"{self}: performing driver.back()")
+        self._driver.back()
+
     def quit(self) -> None:
         Logger.info(f"{self}: quit")
         try:
@@ -103,7 +107,28 @@ class Browser:
 
     def switch_to_frame(self, frame: BaseElement):
         Logger.info(f"{self}: switch to frame")
-        return self.driver.switch_to.frame(frame.wait_for_presence())
+        return self._driver.switch_to.frame(frame.wait_for_presence())
+
+    def get_current_window_handles(self):
+        Logger.info(f"{self}: get current window handles")
+        return self._driver.window_handles
+
+    def wait_new_page_opened(self, current_handles: set[str]):
+        Logger.info(f"{self}: wait new page opened")
+        old_handles = set(current_handles)
+        return self._wait.until(EC.new_window_is_opened(old_handles))
+
+    def new_window_to_be_available_and_switch_to_it(self, current_handles: set[str]):
+        Logger.info(f"{self}: wait new window is opened and switch to it")
+        old_handles = set(current_handles)
+        self.wait_new_page_opened(old_handles)
+        actual_handles = set(self._driver.window_handles)
+        new_window_handle = (actual_handles - old_handles).pop()
+        self._driver.switch_to.window(new_window_handle)
+
+    def get_current_title(self):
+        Logger.info(f"{self}: get current title")
+        return self._driver.title
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}[{self._driver.session_id}]"

@@ -1,6 +1,5 @@
 from browser.browser import Browser
 from elements.web_element import WebElement
-from logger.logger import Logger
 from pages.base_page import BasePage
 
 
@@ -18,6 +17,5 @@ class BasicAuthenticationPage(BasePage):
                                               description="Basic authentication page -> Result Text Element")
 
     def get_result_text(self) -> str:
-        Logger.info(f"{self}: get_result_text")
         text = self.result_text_element.get_text()
         return text

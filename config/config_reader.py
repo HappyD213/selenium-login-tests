@@ -23,6 +23,10 @@ class ConfigReader:
         return Options.HOVERS_URL
 
     @staticmethod
+    def get_handlers_url() -> str:
+        return Options.HANDLERS_URL
+
+    @staticmethod
     def get_login() -> str:
         return Options.LOGIN
 
