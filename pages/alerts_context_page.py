@@ -11,7 +11,7 @@ class AlertContextPage(BasePage):
 
     def __init__(self, browser: Browser):
         super().__init__(browser)
-        self.name = 'Alert Context Page'
+        self.page_name = 'Alert Context Page'
 
         self.unique_element = WebElement(self.browser, self.ALERT_CONTEXT_UNIQUE_LOC,
                                          description="Alerts Context Page -> Unique element")

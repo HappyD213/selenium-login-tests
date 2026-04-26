@@ -12,7 +12,7 @@ class NewWindowPage(BasePage):
 
     def __init__(self, browser: Browser):
         super().__init__(browser)
-        self.name = "New Window Page"
+        self.page_name = "New Window Page"
 
         self.unique_element = WebElement(self.browser, self.UNIQUE_ELEMENT_LOC,
                                          description="Handlers New Window Page -> Unique Element")

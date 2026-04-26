@@ -8,5 +8,6 @@ class Options(StrEnum):
     SLIDER_URL = "https://the-internet.herokuapp.com/horizontal_slider"
     HOVERS_URL = "http://the-internet.herokuapp.com/hovers"
     HANDLERS_URL = "http://the-internet.herokuapp.com/windows"
+    IFRAME_URL = "https://demoqa.com/frames"
     LOGIN = "admin"
     PASSWORD = "admin"

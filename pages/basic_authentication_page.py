@@ -9,7 +9,7 @@ class BasicAuthenticationPage(BasePage):
 
     def __init__(self, browser: Browser):
         super().__init__(browser)
-        self.name = "Basic Authentication Page"
+        self.page_name = "Basic Authentication Page"
 
         self.unique_element = WebElement(self.browser, self.UNIQUE_ELEMENT_LOC,
                                          description="Basic authentication page -> Unique element")

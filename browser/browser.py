@@ -109,6 +109,10 @@ class Browser:
         Logger.info(f"{self}: switch to frame")
         return self._driver.switch_to.frame(frame.wait_for_presence())
 
+    def switch_to_default_content(self):
+        Logger.info(f"{self}: switch to default content")
+        self._driver.switch_to.default_content()
+
     def get_current_window_handles(self):
         Logger.info(f"{self}: get current window handles")
         return self._driver.window_handles

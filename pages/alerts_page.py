@@ -15,7 +15,7 @@ class AlertsPage(BasePage):
 
     def __init__(self, browser: Browser):
         super().__init__(browser)
-        self.name = "Alerts Page"
+        self.page_name = "Alerts Page"
 
         self.unique_element = Button(self.browser, self.JS_ALERT_LOC, description="Alerts page -> Unique element")
 

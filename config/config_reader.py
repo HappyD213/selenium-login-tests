@@ -27,6 +27,10 @@ class ConfigReader:
         return Options.HANDLERS_URL
 
     @staticmethod
+    def get_iframe_url() -> str:
+        return Options.IFRAME_URL
+
+    @staticmethod
     def get_login() -> str:
         return Options.LOGIN
 

@@ -16,7 +16,7 @@ class SliderPage(BasePage):
 
     def __init__(self, browser: Browser):
         super().__init__(browser)
-        self.name = 'SliderPage'
+        self.page_name = 'SliderPage'
 
         self.unique_element = WebElement(self.browser, self.SLIDER_LOC, description=f"Slider Page -> Unique Element")
         self.slider_element = Input(self.browser, self.SLIDER_LOC, description=f"Slider Page -> Slider Element")

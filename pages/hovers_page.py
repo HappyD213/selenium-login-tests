@@ -15,7 +15,7 @@ class HoversPage(BasePage):
 
     def __init__(self, browser: Browser):
         super().__init__(browser)
-        self.name = "Hovers Page"
+        self.page_name = "Hovers Page"
 
         self.unique_element = WebElement(self.browser, self.HOVERS_PAGE_UNIQUE_LOC,
                                          description="Hovers Page -> Unique Element")

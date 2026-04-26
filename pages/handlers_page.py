@@ -13,7 +13,7 @@ class HandlersPage(BasePage):
 
     def __init__(self, browser: Browser):
         super().__init__(browser)
-        self.name = "Handlers Page"
+        self.page_name = "Handlers Page"
 
         self.unique_element = WebElement(self.browser, self.HANDLERS_PAGE_UNIQUE_LOC,
                                          description=f"Handlers Page -> Unique Element")
