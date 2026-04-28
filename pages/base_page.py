@@ -13,7 +13,7 @@ class BasePage:
         self.unique_element = None
 
     def wait_for_open(self) -> None:
-        Logger.info(f"{self}: wait_for_open")
+        Logger.info(f"{self}: wait_for_open(check unique element)")
         self.unique_element.wait_for_presence()
 
     def __str__(self) -> str:

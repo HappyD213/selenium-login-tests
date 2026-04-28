@@ -49,6 +49,10 @@ class Browser:
             Logger.error(f"{self}: {err}")
             raise
 
+    def refresh(self) -> None:
+        Logger.info(f"{self}: performing driver.refresh()")
+        self._driver.refresh()
+
     def execute_script(self, script: str, *args) -> None:
         Logger.info(f"{self}: execute script = '{script}' with args = '{args}'")
         try:

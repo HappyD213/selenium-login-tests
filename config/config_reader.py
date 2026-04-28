@@ -31,6 +31,10 @@ class ConfigReader:
         return Options.IFRAME_URL
 
     @staticmethod
+    def get_dynamic_content_url() -> str:
+        return Options.DYNAMIC_CONTENT_URL
+
+    @staticmethod
     def get_login() -> str:
         return Options.LOGIN
 

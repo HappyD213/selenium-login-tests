@@ -17,15 +17,15 @@ class NestedPage(BasePage):
         super().__init__(browser)
         self.page_name = "Nested Frames"
 
-        self.unique_element = WebElement(browser, self.UNIQUE_ELEMENT_LOC,
+        self.unique_element = WebElement(self.browser, self.UNIQUE_ELEMENT_LOC,
                                          description="Nested Frames Page -> Unique element")
-        self.nested_parent = WebElement(browser, self.NESTED_PARENT_FRAME_LOC,
+        self.nested_parent = WebElement(self.browser, self.NESTED_PARENT_FRAME_LOC,
                                         description="Iframe Page -> Nested Parent Element")
-        self.nested_child = WebElement(browser, self.NESTED_CHILD_FRAME_LOC,
+        self.nested_child = WebElement(self.browser, self.NESTED_CHILD_FRAME_LOC,
                                        description="Iframe Page -> Nested Child Element")
-        self.nested_parent_text = WebElement(browser, self.NESTED_PARENT_TEXT_LOC,
+        self.nested_parent_text = WebElement(self.browser, self.NESTED_PARENT_TEXT_LOC,
                                              description="Iframe Page -> Nested Parent Text")
-        self.nested_child_text = WebElement(browser, self.NESTED_CHILD_TEXT_LOC,
+        self.nested_child_text = WebElement(self.browser, self.NESTED_CHILD_TEXT_LOC,
                                             description="Iframe Page -> Nested Child Text")
 
     def get_parent_frame_text(self) -> str:

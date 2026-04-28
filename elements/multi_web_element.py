@@ -32,7 +32,7 @@ class MultiWebElement:
             timeout=self.timeout
         )
 
-        if not current_element.is_exists():
+        if not current_element.is_exists(timeout=1):
             raise StopIteration
 
         self.index += 1

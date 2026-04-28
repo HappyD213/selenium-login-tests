@@ -9,5 +9,6 @@ class Options(StrEnum):
     HOVERS_URL = "http://the-internet.herokuapp.com/hovers"
     HANDLERS_URL = "http://the-internet.herokuapp.com/windows"
     IFRAME_URL = "https://demoqa.com/frames"
+    DYNAMIC_CONTENT_URL = "http://the-internet.herokuapp.com/dynamic_content"
     LOGIN = "admin"
     PASSWORD = "admin"
