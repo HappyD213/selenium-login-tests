@@ -41,18 +41,16 @@ class BaseElement:
     def __repr__(self) -> str:
         return str(self)
 
-    def _get_wait(self, timeout: int = 0) -> WebDriverWait:
-        return WebDriverWait(self.browser.driver,
-                             timeout=timeout)
+    def _get_wait(self, timeout: int | None = None) -> WebDriverWait:
+        if timeout is not None:
+            return WebDriverWait(self.browser.driver,
+                                 timeout=timeout)
+        return self._wait
 
     def _wait_for(self, expected_condition, timeout: int | None = None) -> WebElement:
         try:
-            if timeout is not None:
-                Logger.info(f"{self}: wait for {expected_condition.__name__}")
-                element = self._get_wait(timeout).until(method=expected_condition(self.locator))
-                return element
             Logger.info(f"{self}: wait for {expected_condition.__name__}")
-            element = self._wait.until(method=expected_condition(self.locator))
+            element = self._get_wait(timeout=timeout).until(method=expected_condition(self.locator))
             return element
         except TimeoutException as err:
             Logger.error(f"{self}: {err}")

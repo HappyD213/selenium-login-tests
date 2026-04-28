@@ -35,6 +35,10 @@ class ConfigReader:
         return Options.DYNAMIC_CONTENT_URL
 
     @staticmethod
+    def get_infinity_scroll_page_url() -> str:
+        return Options.INFINITY_SCROLL_PAGE
+
+    @staticmethod
     def get_login() -> str:
         return Options.LOGIN
 

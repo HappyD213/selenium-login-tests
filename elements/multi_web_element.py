@@ -46,6 +46,23 @@ class MultiWebElement:
             timeout=self.timeout
         )
 
+    def count(self, max_limit: int = 1000) -> int:
+        counter = 0
+
+        for index in range(1, max_limit + 1):
+            element = WebElement(
+                self.browser,
+                self.formattable_xpath.format(index),
+                f"{self.description}[{index}]",
+                timeout=self.timeout
+            )
+            if not element.is_exists(timeout=1):
+                break
+
+            counter += 1
+
+        return counter
+
     def __str__(self) -> str:
         return f"{self.__class__.__name__}[{self.description}]"
 

@@ -10,5 +10,6 @@ class Options(StrEnum):
     HANDLERS_URL = "http://the-internet.herokuapp.com/windows"
     IFRAME_URL = "https://demoqa.com/frames"
     DYNAMIC_CONTENT_URL = "http://the-internet.herokuapp.com/dynamic_content"
+    INFINITY_SCROLL_PAGE = "http://the-internet.herokuapp.com/infinite_scroll"
     LOGIN = "admin"
     PASSWORD = "admin"
