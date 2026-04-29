@@ -11,5 +11,6 @@ class Options(StrEnum):
     IFRAME_URL = "https://demoqa.com/frames"
     DYNAMIC_CONTENT_URL = "http://the-internet.herokuapp.com/dynamic_content"
     INFINITY_SCROLL_PAGE = "http://the-internet.herokuapp.com/infinite_scroll"
+    UPLOAD_PAGE_URL = "http://the-internet.herokuapp.com/upload"
     LOGIN = "admin"
     PASSWORD = "admin"

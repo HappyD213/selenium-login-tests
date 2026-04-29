@@ -39,6 +39,10 @@ class ConfigReader:
         return Options.INFINITY_SCROLL_PAGE
 
     @staticmethod
+    def get_upload_page_url() -> str:
+        return Options.UPLOAD_PAGE_URL
+
+    @staticmethod
     def get_login() -> str:
         return Options.LOGIN
 
