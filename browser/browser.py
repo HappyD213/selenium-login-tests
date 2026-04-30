@@ -98,16 +98,19 @@ class Browser:
         return self._wait.until_not(EC.alert_is_present())
 
     def get_alert_text(self):
+        alert = self.wait_alert_present()
         Logger.info(f"{self}: get alert text")
-        return self.wait_alert_present().text
+        return alert.text
 
     def accept_alert(self):
+        alert = self.wait_alert_present()
         Logger.info(f"{self}: accept alert")
-        self.wait_alert_present().accept()
+        alert.accept()
 
     def send_keys_alert(self, text: str):
+        alert = self.wait_alert_present()
         Logger.info(f"{self}: send '{text}' to alert'")
-        self.wait_alert_present().send_keys(text)
+        alert.send_keys(text)
 
     def switch_to_frame(self, frame: BaseElement):
         Logger.info(f"{self}: switch to frame")
@@ -122,16 +125,16 @@ class Browser:
         return self._driver.window_handles
 
     def wait_new_page_opened(self, current_handles: set[str]):
-        Logger.info(f"{self}: wait new page opened")
         old_handles = set(current_handles)
+        Logger.info(f"{self}: wait new page opened")
         return self._wait.until(EC.new_window_is_opened(old_handles))
 
     def new_window_to_be_available_and_switch_to_it(self, current_handles: set[str]):
-        Logger.info(f"{self}: wait new window is opened and switch to it")
         old_handles = set(current_handles)
-        self.wait_new_page_opened(old_handles)
         actual_handles = set(self._driver.window_handles)
         new_window_handle = (actual_handles - old_handles).pop()
+        Logger.info(f"{self}: wait new window is opened and switch to it")
+        self.wait_new_page_opened(old_handles)
         self._driver.switch_to.window(new_window_handle)
 
     def get_current_title(self):

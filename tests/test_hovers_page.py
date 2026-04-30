@@ -1,8 +1,6 @@
 import pytest
 from pages.hovers_page import HoversPage
-from config.config_reader import ConfigReader
-
-config = ConfigReader()
+from config.config import Config
 
 
 @pytest.mark.parametrize("index, expected_name",
@@ -13,10 +11,12 @@ config = ConfigReader()
 
                          ])
 def test_hovers_page(browser, index, expected_name):
-    browser.get(ConfigReader.get_hovers_url())
+    browser.get(Config.HOVERS_URL)
     hovers_page = HoversPage(browser)
     hovers_page.wait_for_open()
 
     expected_user_name = expected_name
     actual_user_name = hovers_page.get_n_user_name(index)
-    assert expected_user_name == actual_user_name, f"Expected not equal to Actual: {repr(expected_user_name)} != {repr(actual_user_name)}"
+    assert expected_user_name == actual_user_name, (f"Expected not equal to Actual: "
+                                                    f"{repr(expected_user_name)} != "
+                                                    f"{repr(actual_user_name)}")

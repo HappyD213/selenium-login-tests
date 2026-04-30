@@ -1,9 +1,9 @@
 from pages.infinity_scroll_page import InfinityScrollPage
-from config.config_reader import ConfigReader
+from config.config import Config
 
 
 def test_infinity_scroll_page(browser):
-    browser.get(ConfigReader.get_infinity_scroll_page_url())
+    browser.get(Config.INFINITY_SCROLL_PAGE)
     infinity_scroll_page = InfinityScrollPage(browser)
     infinity_scroll_page.wait_for_open()
 

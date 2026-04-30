@@ -1,9 +1,9 @@
 from pages.alerts_context_page import AlertContextPage
-from config.config_reader import ConfigReader
+from config.config import Config
 
 
 def test_alert_context_click(browser):
-    browser.get(ConfigReader.get_context_alerts_url())
+    browser.get(Config.CONTEXT_ALERTS_URL)
 
     context_page = AlertContextPage(browser)
     context_page.wait_for_open()

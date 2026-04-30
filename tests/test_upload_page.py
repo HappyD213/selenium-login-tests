@@ -1,14 +1,16 @@
 from pages.upload_img_page import UploadImgPage
-from config.config_reader import ConfigReader
+from config.config import Config
+from pathlib import Path
 
 
 def test_upload_page(browser):
-    browser.get(ConfigReader.get_upload_page_url())
+    browser.get(Config.UPLOAD_PAGE_URL)
     upload_img_page = UploadImgPage(browser)
     upload_img_page.wait_for_open()
 
-    filepath = r"C:\Users\happyden\Pictures\Screenshots\anvil.png"
-    upload_img_page.select_button_send_filepath(filepath)
+    base_dir = Path(__file__).resolve().parent.parent
+    file_path = str(base_dir.joinpath("test_data", "test_images", "anvil.png"))
+    upload_img_page.select_button_send_filepath(file_path)
     upload_img_page.submit_button_click()
 
     expected_file_name = "anvil.png"

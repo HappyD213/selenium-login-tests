@@ -10,8 +10,8 @@ if TYPE_CHECKING:
 
 
 class UploadImgPage(BasePage):
-    UNIQUE_ELEMENT_LOC = "//div[@id='drag-drop-upload']"
-    FILE_UPLOAD_FIELD_LOC = "//div[@id='drag-drop-upload']"
+    UNIQUE_ELEMENT_LOC = "drag-drop-upload"
+    FILE_UPLOAD_FIELD_LOC = "drag-drop-upload"
     SELECT_FILE_BUTTON_LOC = "file-upload"
     SUBMIT_FILE_BUTTON_LOC = "file-submit"
     UPLOAD_FILE_NAME_LOC = "uploaded-files"

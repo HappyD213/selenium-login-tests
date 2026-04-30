@@ -1,10 +1,10 @@
 from pages.handlers_page import HandlersPage
 from pages.handlers_new_window_page import NewWindowPage
-from config.config_reader import ConfigReader
+from config.config import Config
 
 
 def test_handlers_page(browser):
-    browser.get(ConfigReader.get_handlers_url())
+    browser.get(Config.HANDLERS_URL)
     handlers_page = HandlersPage(browser)
     handlers_page.wait_for_open()
 

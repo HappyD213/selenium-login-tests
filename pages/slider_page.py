@@ -33,10 +33,23 @@ class SliderPage(BasePage):
         elif steps > 0:
             self.slider_element.send_keys(Keys.ARROW_RIGHT * steps)
 
-    def get_random_value_for_slider(self) -> float:
+    def get_slider_step(self) -> float:
         step = float(self.slider_element.get_attribute("step"))
+        return step
+
+    def get_min_slider_value(self) -> float:
         min_value = float(self.slider_element.get_attribute("min"))
+        return min_value
+
+    def get_max_slider_value(self) -> float:
         max_value = float(self.slider_element.get_attribute("max"))
+        return max_value
+
+    @staticmethod
+    def generate_random_values_for_slider(min_value: float, max_value: float, step: float):
+        step = step
+        min_value = min_value
+        max_value = max_value
 
         possible_values = []
         current_value = min_value
@@ -47,6 +60,6 @@ class SliderPage(BasePage):
 
         return choice(possible_values)
 
-    def get_result_text(self) -> str:
+    def get_result_text(self) -> float:
         text = self.result_element.get_text()
-        return text
+        return float(text)

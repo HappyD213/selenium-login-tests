@@ -1,11 +1,11 @@
 from pages.iframe_page import IFramePage
 from pages.frames_page import FramesPage
 from pages.nested_frames_page import NestedPage
-from config.config_reader import ConfigReader
+from config.config import Config
 
 
 def test_iframe_page(browser):
-    browser.get(ConfigReader.get_iframe_url())
+    browser.get(Config.IFRAME_URL)
     iframe_page = IFramePage(browser)
     iframe_page.wait_for_open()
 

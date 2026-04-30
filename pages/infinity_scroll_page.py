@@ -20,9 +20,6 @@ class InfinityScrollPage(BasePage):
         self.paragraphs = MultiWebElement(self.browser, self.PARAGRAPHS_LOC,
                                           description="Infinity Scroll Page -> Paragraphs")
 
-    def scroll_to_page_end(self):
-        self.browser.execute_script("window.scrollTo(0, document.body.scrollHeight)")
-
     def wait_for_n_paragraphs_count(self, count_to_check: int):
         counter = 0
         while counter != count_to_check:
