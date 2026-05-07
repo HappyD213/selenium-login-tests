@@ -20,14 +20,14 @@ class FramesPage(BasePage):
         self.unique_element = WebElement(self.browser, self.UNIQUE_ELEMENT_LOC,
                                          description="Frames Page -> Unique Element")
         self.frames_first = WebElement(self.browser, self.FRAMES_FIRST_LOC,
-                                       description="Iframe Page -> Frames First Element")
+                                       description="frame Page -> Frames First Element")
         self.frames_second = WebElement(self.browser, self.FRAMES_SECOND_LOC,
-                                        description="Iframe Page -> Frames Second Element"
+                                        description="frame Page -> Frames Second Element"
                                         )
         self.frames_first_text = WebElement(self.browser, self.FRAMES_FIRST_TEXT_LOC,
-                                            description="Iframe Page -> Frames First Text")
+                                            description="frame Page -> Frames First Text")
         self.frames_second_text = WebElement(self.browser, self.FRAMES_SECOND_TEXT_LOC,
-                                             description="Iframe Page -> Frames Second Text")
+                                             description="frame Page -> Frames Second Text")
 
     def get_first_frame_text(self) -> str:
         self.browser.switch_to_frame(self.frames_first)

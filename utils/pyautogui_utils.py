@@ -1,6 +1,9 @@
 import time
-import pyautogui
+import platform
 from logger.logger import Logger
+
+if platform.system() == "Windows":
+    import pyautogui
 
 
 class PyAutoGUIUtilities:

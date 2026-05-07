@@ -3,14 +3,13 @@ import platform
 from pathlib import Path
 from config.config import Config
 from pages.upload_img_page import UploadImgPage
+from utils.pyautogui_utils import PyAutoGUIUtilities
 
 
 @pytest.mark.skipif(
     platform.system() != "Windows",
     reason="Requires Windows GUI")
 def test_upload_img_and_dialog_window(browser):
-    from utils.pyautogui_utils import PyAutoGUIUtilities
-
     browser.get(Config.UPLOAD_PAGE_URL)
     upload_img_page = UploadImgPage(browser)
     upload_img_page.wait_for_open()
