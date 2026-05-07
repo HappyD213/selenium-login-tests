@@ -17,12 +17,14 @@ def test_iframe_page(browser):
     expected_parent_frame_text = "Parent frame"
     actual_parent_frame_text = nested_frames_page.get_parent_frame_text()
 
-    assert expected_parent_frame_text in actual_parent_frame_text, f"Expected: {expected_parent_frame_text} != Actual: {actual_parent_frame_text}"
+    assert expected_parent_frame_text in actual_parent_frame_text, (f"Expected: {expected_parent_frame_text} != "
+                                                                    f"Actual: {actual_parent_frame_text}")
 
     expected_child_frame_text = "Child Iframe"
     actual_child_frame_text = nested_frames_page.get_child_frame_text()
 
-    assert expected_child_frame_text in actual_child_frame_text, f"Expected: {expected_child_frame_text} != Actual: {actual_child_frame_text}"
+    assert expected_child_frame_text in actual_child_frame_text, (f"Expected: {expected_child_frame_text} != "
+                                                                  f"Actual: {actual_child_frame_text}")
 
     iframe_page.click_frames_page_btn()
 

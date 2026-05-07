@@ -8,9 +8,8 @@ def test_upload_page(browser):
     upload_img_page = UploadImgPage(browser)
     upload_img_page.wait_for_open()
 
-    base_dir = Path(__file__).resolve().parent.parent
-    file_path = str(base_dir.joinpath("test_data", "test_images", "anvil.png"))
-    upload_img_page.select_button_send_filepath(file_path)
+    file_path = Path("./test_data/test_images/anvil.png").resolve()
+    upload_img_page.select_button_send_filepath(str(file_path))
     upload_img_page.submit_button_click()
 
     expected_file_name = "anvil.png"

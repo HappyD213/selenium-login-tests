@@ -5,7 +5,13 @@ from browser.browser_factory import BrowserFactory
 
 @pytest.fixture
 def browser():
-    driver = BrowserFactory().get_driver()
+    options = [
+        "--headless=new",
+        "--no-sandbox",
+        "--disable-dev-shm-usage",
+        "--window-size=1920,1080"
+    ]
+    driver = BrowserFactory().get_driver(options=options)
     browser = Browser(driver)
     yield browser
     browser.quit()
